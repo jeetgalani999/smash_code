@@ -1,0 +1,250 @@
+{
+  "version": 20,
+  "defaults": {
+    "inter_enabled": "true",
+    "bundles_enabled": "false",
+    "inter_frequency": "120",
+    "inter_on_every_try": "false",
+    "rewarded_more_lives_enabled": "true",
+    "level_collection": "prod-15",
+    "bidfloor_enabled": "false",
+    "app_migration_enabled": "false",
+    "app_migration_adjust_link": ""
+  },
+  "overrides": [
+    {
+      "countries": [
+        "all"
+      ],
+      "segments": [
+        "IAPUser"
+      ],
+      "platforms": [
+        "all"
+      ],
+      "values": {
+        "bundles_enabled": "true",
+        "inter_enabled": "false",
+        "rewarded_more_lives_enabled": "false"
+      }
+    },
+    {
+      "countries": [
+        "DK",
+        "IT"
+      ],
+      "segments": [
+        "all"
+      ],
+      "platforms": [
+        "ios"
+      ],
+      "values": {
+        "bidfloor_enabled": "true"
+      }
+    }
+  ],
+  "experiments": [
+    {
+      "name": "ab_bidfloor2",
+      "controlledKeys": [
+        "bidfloor_enabled"
+      ],
+      "participationPercentage": 1.0,
+      "variants": [
+        {
+          "variantId": 0,
+          "ratio": 0.5,
+          "values": {
+            "bidfloor_enabled": "false"
+          }
+        },
+        {
+          "variantId": 1,
+          "ratio": 0.5,
+          "values": {
+            "bidfloor_enabled": "true"
+          }
+        }
+      ],
+      "conditions": [
+        {
+          "type": "country",
+          "prefixes": null,
+          "segments": null,
+          "abNames": null,
+          "countries": [
+            "AU",
+            "MX",
+            "BR"
+          ],
+          "platforms": null
+        }
+      ]
+    },
+    {
+      "name": "ab_bundle_failoffer_bld1",
+      "controlledKeys": [
+        "bundles_enabled"
+      ],
+      "participationPercentage": 0.4,
+      "variants": [
+        {
+          "variantId": 0,
+          "ratio": 0.5,
+          "values": {
+            "bundles_enabled": "false"
+          }
+        },
+        {
+          "variantId": 1,
+          "ratio": 0.5,
+          "values": {
+            "bundles_enabled": "true"
+          }
+        }
+      ],
+      "conditions": [
+        {
+          "type": "newUser",
+          "prefixes": null,
+          "segments": null,
+          "abNames": null,
+          "countries": null,
+          "platforms": null
+        },
+        {
+          "type": "segment",
+          "prefixes": null,
+          "segments": [
+            "BlendedUser"
+          ],
+          "abNames": null,
+          "countries": null,
+          "platforms": null
+        },
+        {
+          "type": "platform",
+          "prefixes": null,
+          "segments": null,
+          "abNames": null,
+          "countries": null,
+          "platforms": [
+            "ios"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "ab_bundle_failoffer_ad1",
+      "controlledKeys": [
+        "bundles_enabled"
+      ],
+      "participationPercentage": 0.2,
+      "variants": [
+        {
+          "variantId": 0,
+          "ratio": 0.5,
+          "values": {
+            "bundles_enabled": "false"
+          }
+        },
+        {
+          "variantId": 1,
+          "ratio": 0.5,
+          "values": {
+            "bundles_enabled": "true"
+          }
+        }
+      ],
+      "conditions": [
+        {
+          "type": "newUser",
+          "prefixes": null,
+          "segments": null,
+          "abNames": null,
+          "countries": null,
+          "platforms": null
+        },
+        {
+          "type": "segment",
+          "prefixes": null,
+          "segments": [
+            "AdUser"
+          ],
+          "abNames": null,
+          "countries": null,
+          "platforms": null
+        },
+        {
+          "type": "platform",
+          "prefixes": null,
+          "segments": null,
+          "abNames": null,
+          "countries": null,
+          "platforms": [
+            "ios"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "ab_interfreq_ad1",
+      "controlledKeys": [
+        "inter_frequency",
+        "inter_on_every_try"
+      ],
+      "participationPercentage": 0.02,
+      "variants": [
+        {
+          "variantId": 0,
+          "ratio": 0.5,
+          "values": {
+            "inter_frequency": "120",
+            "inter_on_every_try": "false"
+          }
+        },
+        {
+          "variantId": 1,
+          "ratio": 0.5,
+          "values": {
+            "inter_frequency": "70",
+            "inter_on_every_try": "true"
+          }
+        }
+      ],
+      "conditions": [
+        {
+          "type": "segment",
+          "prefixes": null,
+          "segments": [
+            "AdUser"
+          ],
+          "abNames": null,
+          "countries": null,
+          "platforms": null
+        },
+        {
+          "type": "notInAB",
+          "prefixes": null,
+          "segments": null,
+          "abNames": [
+            "ab_bundle_failoffer_ad1"
+          ],
+          "countries": null,
+          "platforms": null
+        },
+        {
+          "type": "platform",
+          "prefixes": null,
+          "segments": null,
+          "abNames": null,
+          "countries": null,
+          "platforms": [
+            "ios"
+          ]
+        }
+      ]
+    }
+  ]
+}
